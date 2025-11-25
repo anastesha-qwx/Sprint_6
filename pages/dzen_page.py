@@ -1,3 +1,7 @@
+# Вспомогательный комментарий для ревью (без изменения логики)
+
+
+
 import allure
 
 from locators.dzen_page_locators import DzenPageLocators

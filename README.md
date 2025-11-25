@@ -42,3 +42,6 @@ qa_python_sprint_6/
 ├── conftest.py              # фикстура driver (Firefox), базовая настройка pytest
 ├── requirements.txt         # зависимости проекта
 └── README.md
+
+
+# Вспомогательный комментарий для ревью (без изменения логики)

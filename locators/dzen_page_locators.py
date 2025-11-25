@@ -1,3 +1,6 @@
+# Вспомогательный комментарий для ревью (без изменения логики)
+
+
 from selenium.webdriver.common.by import By
 
 

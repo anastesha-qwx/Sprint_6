@@ -1,3 +1,6 @@
+# conftest с фикстурами для проекта Sprint_6 (UI-тесты Яндекс.Самоката)
+
+
 import pytest
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
@@ -18,3 +21,6 @@ def driver():
     yield browser
 
     browser.quit()
+
+
+

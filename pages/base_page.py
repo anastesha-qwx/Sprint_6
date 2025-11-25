@@ -1,3 +1,7 @@
+# Вспомогательный комментарий для ревью (без изменения логики)
+
+
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
