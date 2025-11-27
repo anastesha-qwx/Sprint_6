@@ -1,9 +1,6 @@
-# Вспомогательный комментарий для ревью (без изменения логики)
-
-
-
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import ElementClickInterceptedException, TimeoutException
 
 
 class BasePage:
@@ -24,7 +21,13 @@ class BasePage:
         )
 
     def click(self, locator):
-        self.wait_clickable(locator).click()
+        """Клик с прокруткой и fallback через JS для перекрытых элементов."""
+        el = self.wait_clickable(locator)
+        try:
+            self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", el)
+            el.click()
+        except ElementClickInterceptedException:
+            self.driver.execute_script("arguments[0].click();", el)
 
     def type_text(self, locator, text: str):
         element = self.wait_visible(locator)
@@ -36,9 +39,7 @@ class BasePage:
 
     def scroll_to(self, locator):
         element = self.wait_visible(locator)
-        self.driver.execute_script(
-            "arguments[0].scrollIntoView({block: 'center'});", element
-        )
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
         return element
 
     def current_url(self) -> str:
@@ -51,5 +52,6 @@ class BasePage:
         try:
             self.wait_visible(locator)
             return True
-        except Exception:
+        except TimeoutException:
             return False
+

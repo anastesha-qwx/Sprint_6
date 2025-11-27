@@ -1,30 +1,33 @@
-# Вспомогательный комментарий для ревью (без изменения логики)
-
-
-
 from selenium.webdriver.common.by import By
 
 
 class HeaderLocators:
     """Элементы шапки сайта Самоката."""
-    YANDEX_LOGO = (By.XPATH, "//a[@class='Header_LogoYandex__3TSOI']")
-    SCOOTER_LOGO = (By.XPATH, "//a[@class='Header_LogoScooter__3lsAR']")
+    YANDEX_LOGO = (By.CSS_SELECTOR, "a.Header_LogoYandex__3TSOI")
+    SCOOTER_LOGO = (By.CSS_SELECTOR, "a.Header_LogoScooter__3lsAR")
+
+    # Важно: берём ровно первую кнопку «Заказать» по тексту
     ORDER_BUTTON = (By.XPATH, "(//button[text()='Заказать'])[1]")
     ORDER_STATUS_BUTTON = (By.XPATH, "//button[text()='Статус заказа']")
-    ORDER_NUMBER_INPUT = (By.XPATH, "//input[contains(@class,'Header_Input')]")
-    GO_BUTTON = (By.XPATH, "//button[text()='Go!']")
-    TRACK_PLACEHOLDER_INPUT = (By.XPATH, "//input[@placeholder='Введите номер заказа']")
-    TRAINING_TITLE = (By.XPATH, "//div[text()='Учебный тренажер']")
+
+    ORDER_NUMBER_INPUT = (By.CSS_SELECTOR, "input[class*='Header_Input']")
+    GO_BUTTON = (By.XPATH, "//input[contains(@class,'Header_Input')]/following::button[contains(@class,'Button')][1]")
+
+    TRAINING_TITLE = (By.CSS_SELECTOR, "div.Home_Header__iJKdX")
 
 
 class MainPageLocators:
     """Элементы основной части главной страницы."""
-    MAIN_TITLE = (By.XPATH, "//div[@class='Home_Header__iJKdX']")
-    MIDDLE_ORDER_BUTTON = (By.XPATH, "(//button[text()='Заказать'])[2]")
-    COOKIES_ACCEPT_BUTTON = (By.ID, "rcc-confirm-button")
-    FAQ_TITLE = (By.XPATH, "//div[text()='Вопросы о важном']")
+    MAIN_TITLE = (By.CSS_SELECTOR, "div.Home_Header__iJKdX")
 
-    # Вопросы аккордеона
+    # Нижняя «Заказать» — вторая по тексту
+    MIDDLE_ORDER_BUTTON = (By.XPATH, "(//button[text()='Заказать'])[2]")
+
+    COOKIES_ACCEPT_BUTTON = (By.ID, "rcc-confirm-button")
+
+    # Для скролла к FAQ используем стабильный ID первого пункта
+    FAQ_TITLE = (By.ID, "accordion__heading-0")
+
     FAQ_QUESTIONS = [
         (By.ID, "accordion__heading-0"),
         (By.ID, "accordion__heading-1"),
@@ -36,7 +39,6 @@ class MainPageLocators:
         (By.ID, "accordion__heading-7"),
     ]
 
-    # Ответы аккордеона
     FAQ_ANSWERS = [
         (By.ID, "accordion__panel-0"),
         (By.ID, "accordion__panel-1"),

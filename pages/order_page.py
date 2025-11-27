@@ -1,7 +1,5 @@
 # Вспомогательный комментарий для ревью (без изменения логики)
 
-
-
 import allure
 
 from helps.data import OrderUser
@@ -81,18 +79,16 @@ class OrderPage(BasePage):
         self.fill_comment(user.comment)
         self.submit_order()
 
-    #  Модалки 
+    #  Модалки
 
     @allure.step('Подтверждаем оформление заказа')
     def confirm_order(self):
         self.click(OrderPageLocators.CONFIRM_YES_BUTTON)
 
+    @allure.step('Переходим на страницу статуса заказа по кнопке "Посмотреть статус"')
+    def open_status_page(self):
+        self.click(OrderPageLocators.VIEW_STATUS_BUTTON)
+
     @allure.step('Проверяем, что модалка с текстом "Заказ оформлен" отображается')
     def is_success_modal_visible(self) -> bool:
         return self.is_visible(OrderPageLocators.SUCCESS_TITLE)
-
-    @allure.step('Полный путь оформления заказа от данных клиента до подтверждения')
-    def create_order(self, user: OrderUser):
-        self.fill_recipient_block(user)
-        self.fill_rent_block(user)
-        self.confirm_order()

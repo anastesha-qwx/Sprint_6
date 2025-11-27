@@ -1,7 +1,5 @@
 # Вспомогательный комментарий для ревью (без изменения логики)
 
-
-
 import allure
 import pytest
 
@@ -26,8 +24,12 @@ class TestMainPageHeader:
         header.open_order_form_from_header()
         header.click_scooter_logo()
 
+        # Проверяем, что вернулись на главную страницу
         assert header.current_url() == Urls.MAIN_PAGE
-        assert header.is_training_title_visible()
+
+        # Явная проверка видимости заголовка
+        title_element = header.wait_training_title()
+        assert title_element.is_displayed()
 
     @allure.title('Переход на главную страницу Дзена по клику на логотип "Яндекс"')
     @allure.description(
@@ -67,3 +69,4 @@ class TestMainPageHeader:
         answer_text = main_page.get_faq_answer_text(index)
 
         assert answer_text == expected_answer
+

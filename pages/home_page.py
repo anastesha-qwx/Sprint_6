@@ -1,7 +1,5 @@
 # Вспомогательный комментарий для ревью (без изменения логики)
 
-
-
 import allure
 
 from locators.home_page_locators import HeaderLocators, MainPageLocators
@@ -23,9 +21,9 @@ class Header(BasePage):
     def open_order_form_from_header(self):
         self.click(HeaderLocators.ORDER_BUTTON)
 
-    @allure.step('Проверяем, что заголовок "Учебный тренажер" отображается')
-    def is_training_title_visible(self) -> bool:
-        return self.is_visible(HeaderLocators.TRAINING_TITLE)
+    @allure.step('Ожидаем появления заголовка "Учебный тренажер" на главной странице')
+    def wait_training_title(self):
+        return self.wait_visible(HeaderLocators.TRAINING_TITLE)
 
 
 class MainPage(BasePage):
@@ -39,8 +37,6 @@ class MainPage(BasePage):
     def open_order_form_from_main_button(self):
         self.scroll_to(MainPageLocators.MIDDLE_ORDER_BUTTON)
         self.click(MainPageLocators.MIDDLE_ORDER_BUTTON)
-
-
 
     @allure.step('Прокручиваем страницу до блока "Вопросы о важном"')
     def scroll_to_faq(self):

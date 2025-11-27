@@ -1,6 +1,5 @@
 # Вспомогательный комментарий для ревью (без изменения логики)
 
-
 from dataclasses import dataclass
 
 
